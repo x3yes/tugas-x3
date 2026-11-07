@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tugas Kelas X.3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<style>
+:root{--bg:#eef2fa;--card:#fff;--tx:#10203f;--mu:#5d6b88;--bd:#d9e2f3;--t1:#e4ecff;--t2:#cbdaff;--ac:#2f6bff;--on:#fff;--dg:#d33f3f;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b1122;--card:#141c36;--tx:#e8edfb;--mu:#8d9ac0;--bd:#25304f;--t1:#1b2852;--t2:#16224a;--ac:#5b8cff;--dg:#ff7b7b;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0b1122;--card:#141c36;--tx:#e8edfb;--mu:#8d9ac0;--bd:#25304f;--t1:#1b2852;--t2:#16224a;--ac:#5b8cff;--dg:#ff7b7b;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px);background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.45 "Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:#1d3a8a;z-index:10}
+[hidden]{display:none!important}
+.hd{background:linear-gradient(170deg,#1d3a8a,#3e73e6);color:#fff;padding:18px 14px 78px;border-radius:0 0 30px 30px}
+.in{max-width:640px;margin:0 auto}
+.hd .in{display:flex;align-items:center;gap:12px}
+.av{width:46px;height:46px;border-radius:50%;background:#0f2257;border:2px solid #ffffff55;display:grid;place-items:center;font-weight:800;flex:none}
+.hd h1{font-size:1.3rem;font-weight:800;margin:0;line-height:1.2}
+.hd p{margin:2px 0 0;opacity:.85;font-size:.85rem}
+.hd .gr{flex:1;min-width:0}
+.bell{position:relative;width:44px;height:44px;border-radius:14px;background:#12285f;color:#fff;font-size:20px;padding:0;border:0}
+.bell b{position:absolute;top:-4px;right:-4px;min-width:18px;height:18px;border-radius:9px;background:#ff5a4f;font-size:.7rem;display:grid;place-items:center;padding:0 4px}
+.hero{margin:-54px 14px 0;background:linear-gradient(160deg,#16275c,#0d1738);color:#fff;border-radius:24px;padding:16px;display:flex;gap:14px;align-items:center;box-shadow:0 10px 24px #0d173844}
+@media(min-width:660px){.hero{margin:-54px auto 0;max-width:612px}}
+.rg{position:relative;width:84px;height:84px;flex:none}
+.rg svg{display:block}
+.rg span{position:absolute;inset:0;display:grid;place-items:center;font-weight:800;font-size:1.1rem}
+.hero small{opacity:.8;font-size:.85rem}
+.hero strong{display:block;font-size:1.2rem;font-weight:800;line-height:1.25;margin:2px 0 8px}
+.hero>div:last-child{min-width:0}
+.track{height:7px;border-radius:4px;background:#ffffff30;overflow:hidden}
+.track i{display:block;height:100%;background:#3ddc84;border-radius:4px;transition:width .4s}
+.cta{margin-top:12px;display:inline-flex;align-items:center;gap:10px;background:linear-gradient(90deg,#2f6bff,#4d86ff);color:#fff;border:0;border-radius:12px;padding:8px 8px 8px 16px;font-family:inherit;font-size:.9rem;font-weight:700;cursor:pointer}
+.cta em{font-style:normal;background:#0d1738;border-radius:9px;padding:4px 10px}
+main{max-width:640px;margin:0 auto;padding:18px 14px 28px}
+h2{font-size:1.05rem;font-weight:800;margin:22px 2px 10px;display:flex;justify-content:space-between;align-items:center}
+h2 button{font-size:.8rem;font-weight:600;color:var(--ac);background:none;border:0;padding:0;cursor:pointer;font-family:inherit}
+#sec-list{scroll-margin-top:12px}
+h2 small{color:var(--mu);font-weight:500;font-size:.8rem}
+.btn.sm{margin-top:10px;padding:10px;font-size:.9rem}
+#st{color:var(--dg);font-size:.9rem;margin:0 2px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.tile{border:0;border-radius:18px;background:linear-gradient(180deg,var(--t1),var(--t2));color:var(--tx);padding:12px 4px 10px;display:flex;flex-direction:column;align-items:center;gap:6px;font-family:inherit;font-size:.75rem;font-weight:600;line-height:1.2;cursor:pointer;text-align:center;min-width:0}
+.tile i{font-style:normal;font-size:28px;line-height:1.1}
+.tile.on{background:linear-gradient(180deg,#1c2e66,#0f1c44);color:#fff;box-shadow:0 6px 14px #0f1c4455}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:20px;padding:16px;margin-top:14px;scroll-margin-top:12px}
+.card h3{margin:0 0 6px;font-size:1rem;font-weight:800}
+label{display:block;font-size:.78rem;font-weight:600;color:var(--mu);margin:12px 0 4px}
+input,select,textarea{width:100%;box-sizing:border-box;font:inherit;color:var(--tx);background:var(--bg);border:1px solid var(--bd);border-radius:12px;padding:11px;min-height:44px}
+input:focus,select:focus,textarea:focus,button:focus-visible{outline:2px solid var(--ac);outline-offset:1px}
+textarea{min-height:64px;resize:vertical}
+.row{display:flex;gap:10px}.row>div{flex:1;min-width:0}
+.btn{width:100%;margin-top:16px;border:0;border-radius:14px;padding:13px;background:linear-gradient(90deg,#2f6bff,#4d86ff);color:#fff;font-family:inherit;font-size:1rem;font-weight:700;cursor:pointer}
+.h{display:block;color:var(--mu);font-size:.8rem;margin-top:5px}
+pre{white-space:pre-wrap;word-break:break-word;background:var(--bg);border:1px solid var(--bd);border-radius:12px;padding:12px;font:.84rem/1.55 ui-monospace,Menlo,monospace;margin:12px 0 0}
+.days{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -14px;padding:2px 14px 10px}
+.day{flex:none;width:158px;scroll-snap-align:start;text-align:left;border:0;border-radius:20px;padding:14px;color:#fff;background:linear-gradient(150deg,#1f48b5,#3b74ee);cursor:pointer;font-family:inherit}
+.day.now{background:linear-gradient(150deg,#16275c,#0d1738)}
+.day b{display:block;font-size:1.15rem;font-weight:800}
+.day small{display:block;opacity:.95;font-size:.78rem;margin:1px 0 12px}
+.day .track{background:#ffffff30}
+.day span{display:block;text-align:right;font-size:.78rem;font-weight:700;margin-top:6px}
+.item{display:flex;gap:10px;justify-content:space-between;align-items:flex-start;background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:12px;margin-bottom:10px}
+.il{min-width:0}
+.pill{display:inline-block;background:var(--t1);color:var(--ac);border-radius:9px;padding:2px 9px;font-weight:700;font-size:.8rem}
+.bd{display:inline-block;margin-left:6px;font-size:.7rem;font-weight:700;background:#ff9f1c;color:#2b1a00;border-radius:8px;padding:2px 7px}
+.bd.l{background:var(--mu);color:var(--bg)}
+.tx{margin:5px 0 2px;overflow-wrap:anywhere}
+.item small{color:var(--mu);font-size:.76rem}
+.del{flex:none;background:none;border:1px solid var(--bd);color:var(--mu);border-radius:10px;padding:5px 10px;font-family:inherit;font-size:.78rem;font-weight:600;cursor:pointer}
+.empty{color:var(--mu);text-align:center;padding:18px 0}
+@media(max-width:340px){input[type=date]{font-size:.9rem;padding-left:9px;padding-right:6px}}
+#toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(20px + env(safe-area-inset-bottom,0px));background:#0d1738;color:#fff;padding:10px 16px;border-radius:20px;font-size:.88rem;opacity:0;transition:opacity .2s;pointer-events:none;max-width:90vw;text-align:center;z-index:20}
+#toast.on{opacity:1}
+</style>
+</head>
+<body>
+<header class="hd"><div class="in">
+<div class="av" id="av">X3</div>
+<div class="gr"><h1 id="hi">Halo!</h1><p>Kelas X.3, Saluran Tugas</p></div>
+<button class="bell" id="bell" aria-label="Tugas hari ini dan besok">🔔<b id="dot" hidden></b></button>
+</div></header>
+
+<section class="hero">
+<div class="rg"><svg viewBox="0 0 80 80" width="84" height="84"><circle cx="40" cy="40" r="34" fill="none" stroke="#3b4a7c" stroke-width="9"/><circle id="ring" cx="40" cy="40" r="34" fill="none" stroke="#3ddc84" stroke-width="9" stroke-linecap="round" stroke-dasharray="0 213.6" transform="rotate(-90 40 40)"/></svg><span id="pc">0%</span></div>
+<div><small id="hl">Tugas besok</small><strong id="hb">0 dari 0 mapel ada tugas</strong><div class="track"><i id="bar" style="width:0"></i></div><button class="cta" id="go">Buat pesan <em>→</em></button></div>
+</section>
+
+<main>
+<p id="st"></p>
+<h2>Menu utama</h2>
+<div class="grid">
+<button class="tile on" id="t-add"><i>📝</i>Tambah tugas</button>
+<button class="tile" id="t-daily"><i>📢</i>Pesan harian</button>
+<button class="tile" id="t-new"><i>🔔</i>Tugas baru</button>
+<button class="tile" id="t-list"><i>📋</i>Daftar tugas</button>
+</div>
+
+<div class="card" id="p-add">
+<h3>Tambah tugas</h3>
+<div class="row">
+<div><label for="mapel">Mapel</label><select id="mapel"></select></div>
+<div><label for="dl">Untuk tanggal</label><input type="date" id="dl"></div>
+</div>
+<small class="h" id="dlh"></small>
+<label for="tugas">Tugas</label><textarea id="tugas" placeholder="mengerjakan halaman 91 dan 92"></textarea>
+<label for="oleh">Nama kamu (opsional)</label><input id="oleh">
+<button class="btn" id="add">Simpan tugas</button>
+</div>
+
+<div class="card" id="p-msg" hidden>
+<h3 id="mh">Pesan harian</h3>
+<label for="tgl" id="tgll">Tanggal pelajaran</label><input type="date" id="tgl">
+<small class="h" id="hint"></small>
+<div id="nbox"><label for="notes">Notes (misal: ada upacara, pakai baju olahraga)</label><textarea id="notes"></textarea><button class="btn sm" id="sn">Simpan notes</button></div>
+<pre id="msg">—</pre>
+<button class="btn" id="copy">Salin pesan</button>
+</div>
+
+<h2>Jadwal minggu ini <small>geser</small></h2>
+<div class="days" id="days"></div>
+
+<h2 id="sec-list">Tugas mendatang <button id="past">Tampilkan yang lewat</button></h2>
+<div id="list"></div>
+</main>
+<div id="toast"></div>
+
+<script>
+const TT={1:["B. Inggris","Informatika/PKWU","PP","Matematika"],2:["Matematika","B. Indonesia","Kimia","Sejarah"],3:["Sosiologi","P. Seni","BK","Biologi","Ekonomi"],4:["Geografi","PKWU/B. Sunda","PAI"],5:["PJOK","B. Indonesia","Fisika"]};
+const HARI=["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
+const BLN=["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
+const NUM=["1️⃣","2️⃣","3️⃣","4️⃣","5️⃣","6️⃣"];
+const MAPEL=[...new Set(Object.values(TT).flat())];
+const $=id=>document.getElementById(id);
+const el=(t,c,x)=>{const e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e};
+const pd=s=>{const[a,b,c]=s.split("-").map(Number);return new Date(a,b-1,c)};
+const iso=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+const fd=s=>{const d=pd(s);return HARI[d.getDay()]+" "+d.getDate()+" "+BLN[d.getMonth()]+" "+d.getFullYear()};
+const fs=s=>{const d=pd(s);return d.getDate()+" "+BLN[d.getMonth()].slice(0,3)};
+const OK=/^\d{4}-\d\d-\d\d$/;
+function plus(n){const d=new Date();d.setDate(d.getDate()+n);return d}
+function nextSchool(){const d=plus(1);while(d.getDay()===0||d.getDay()===6)d.setDate(d.getDate()+1);return iso(d)}
+function occ(wd){const d=new Date();for(let i=0;i<7;i++){if(d.getDay()===wd)return iso(d);d.setDate(d.getDate()+1)}}
+let sb=null,tasks=[],nts={},mode=1,showPast=false;
+
+MAPEL.forEach(m=>{const o=el("option","",m);o.value=m;$("mapel").appendChild(o)});
+$("dl").value=nextSchool();$("tgl").value=nextSchool();
+
+function greet(){let n="";try{n=localStorage.getItem("nama")||""}catch(e){}$("hi").textContent=n?"Halo, "+n:"Halo!";$("av").textContent=n?n[0].toUpperCase():"X3";if(n&&!$("oleh").value)$("oleh").value=n}
+greet();
+function toast(t){const e=$("toast");e.textContent=t;e.classList.add("on");setTimeout(()=>e.classList.remove("on"),2800)}
+function status(t){$("st").textContent=t}
+const mapelDays=m=>Object.keys(TT).filter(k=>TT[k].includes(m)).map(k=>HARI[k]).join(" atau ");
+function hintDl(){const d=$("dl").value,m=$("mapel").value;$("dlh").textContent=d?fd(d)+(m&&!(TT[pd(d).getDay()]||[]).includes(m)?" (tidak ada "+m+", pilih hari "+mapelDays(m)+")":""):""}
+function go(id){$(id).scrollIntoView({behavior:"smooth",block:"start"})}
+
+function stat(dt){const sub=TT[pd(dt).getDay()]||[],due=tasks.filter(t=>t.dl===dt);const k=sub.filter(s=>due.some(t=>t.mapel===s)).length;return{n:sub.length,k,c:due.length,pct:sub.length?Math.round(100*k/sub.length):0}}
+
+function build(){
+  const dt=$("tgl").value;
+  if(!dt)return "—";
+  if(mode===2){
+    const L=tasks.filter(t=>t.keluar===dt);
+    let m="🔔*TUGAS BARU "+fd(dt)+"*\n\n";
+    if(!L.length)return m+"-";
+    L.forEach((t,i)=>{m+=(NUM[i]||"▪️")+" *"+t.mapel+"*: "+t.tugas+" _(dikumpulkan "+fd(t.dl)+")_\n"});
+    return m.trim();
+  }
+  const sub=TT[pd(dt).getDay()]||[],due=tasks.filter(t=>t.dl===dt);
+  let m="🔊*JADWAL DAN TUGAS MAPEL "+fd(dt)+"*\n\n";
+  sub.forEach((s,i)=>{const L=due.filter(t=>t.mapel===s).map(t=>t.tugas);m+=(NUM[i]||"▪️")+" *"+s+"*: "+(L.join("; ")||"-")+"\n"});
+  const nl=$("notes").value.split("\n").map(s=>s.trim()).filter(Boolean);
+  return nl.length?m+"\nNotes:\n"+nl.map(n=>"- "+n).join("\n"):m.trim();
+}
+function renderMsg(){
+  $("msg").textContent=build();
+  const dt=$("tgl").value;
+  $("hint").textContent=dt?(mode===1&&!(TT[pd(dt).getDay()]||[]).length?"Tidak ada jadwal pelajaran di hari ini.":fd(dt)):"";
+}
+
+function renderHero(){
+  const dt=nextSchool(),s=stat(dt),wd=pd(dt).getDay();
+  $("hl").textContent="Tugas "+(dt===iso(plus(1))?"besok":HARI[wd])+", "+fs(dt);
+  $("hb").textContent=s.k+" dari "+s.n+" mapel ada tugas";
+  $("pc").textContent=s.pct+"%";
+  $("ring").setAttribute("stroke-dasharray",(213.6*s.pct/100)+" 213.6");$("ring").style.visibility=s.pct?"visible":"hidden";
+  $("bar").style.width=s.pct+"%";
+  const today=iso(new Date()),tmr=iso(plus(1)),c=tasks.filter(t=>t.dl===today||t.dl===tmr).length;
+  $("dot").hidden=!c;$("dot").textContent=c;
+}
+function renderDays(){
+  const box=$("days");box.textContent="";
+  [1,2,3,4,5].forEach(wd=>{
+    const dt=occ(wd),s=stat(dt);
+    const c=el("button","day"+(dt===iso(new Date())?" now":""));
+    c.appendChild(el("b","",HARI[wd]));
+    c.appendChild(el("small","",s.n+" mapel, "+fs(dt)));
+    const tr=el("div","track");const f=el("i");f.style.width=s.pct+"%";tr.appendChild(f);c.appendChild(tr);
+    c.appendChild(el("span","",s.c+" tugas"));
+    c.onclick=()=>openMsg(1,dt);
+    box.appendChild(c);
+  });
+}
+function renderList(){
+  const box=$("list");box.textContent="";
+  const today=iso(new Date()),tmr=iso(plus(1));
+  const L=tasks.filter(t=>showPast||t.dl>=today);
+  if(!L.length){box.appendChild(el("p","empty","Belum ada tugas. Tambah lewat menu Tambah tugas."));return}
+  L.forEach(t=>{
+    const it=el("div","item"),left=el("div","il"),top=el("div");
+    top.appendChild(el("span","pill",t.mapel));
+    if(t.dl<=tmr)top.appendChild(el("span","bd"+(t.dl<today?" l":""),t.dl<today?"Lewat":t.dl===today?"Hari ini":"Besok"));
+    left.appendChild(top);left.appendChild(el("div","tx",t.tugas));
+    left.appendChild(el("small","","Untuk "+fd(t.dl)+(t.oleh?", oleh "+t.oleh:"")));
+    const x=el("button","del","Hapus");
+    x.onclick=async()=>{if(!confirm("Hapus tugas ini?"))return;const r=await sb.from("tasks").delete().eq("id",t.id);if(r.error)toast("Gagal menghapus");else load()};
+    it.appendChild(left);it.appendChild(x);box.appendChild(it);
+  });
+}
+function renderAll(){renderHero();renderDays();renderList();renderMsg()}
+
+function show(p){
+  ["add","daily","new"].forEach(k=>$("t-"+k).classList.toggle("on",k===p));
+  $("p-add").hidden=p!=="add";$("p-msg").hidden=p==="add";
+}
+function openMsg(n,dt){
+  mode=n;$("nbox").hidden=n!==1;
+  $("mh").textContent=n===1?"Pesan harian":"Tugas baru";
+  $("tgll").textContent=n===1?"Tanggal pelajaran":"Tanggal tugas keluar";
+  $("tgl").value=dt||(n===1?nextSchool():iso(new Date()));
+  loadNotes();renderMsg();show(n===1?"daily":"new");go("p-msg");
+}
+$("t-add").onclick=()=>{show("add");go("p-add")};
+$("t-daily").onclick=()=>openMsg(1);
+$("t-new").onclick=()=>openMsg(2);
+$("t-list").onclick=()=>go("sec-list");
+$("go").onclick=()=>openMsg(1,nextSchool());
+$("bell").onclick=()=>go("sec-list");
+$("past").onclick=()=>{showPast=!showPast;$("past").textContent=showPast?"Sembunyikan yang lewat":"Tampilkan yang lewat";renderList()};
+function loadNotes(){$("notes").value=nts[$("tgl").value]||""}
+$("tgl").oninput=()=>{loadNotes();renderMsg()};$("notes").oninput=renderMsg;$("dl").oninput=hintDl;$("mapel").onchange=hintDl;
+$("sn").onclick=async()=>{if(!sb){toast("Database belum siap");return}const dt=$("tgl").value,tx=$("notes").value.trim();const r=tx?await sb.from("notes").upsert({tgl:dt,isi:tx}):await sb.from("notes").delete().eq("tgl",dt);if(r.error)toast("Gagal menyimpan notes");else{toast("Notes tersimpan");load()}};
+hintDl();renderAll();
+
+$("add").onclick=async()=>{
+  if(!sb){toast("Database belum siap");return}
+  const mapel=$("mapel").value,tugas=$("tugas").value.trim(),dl=$("dl").value,oleh=$("oleh").value.trim();
+  if(!tugas||!dl){toast("Isi tugas dan tanggalnya dulu");return}
+  if(!(TT[pd(dl).getDay()]||[]).includes(mapel)){toast(mapel+" tidak ada di hari "+HARI[pd(dl).getDay()]+". Pilih tanggal hari "+mapelDays(mapel)+".");return}
+  try{localStorage.setItem("nama",oleh)}catch(e){}
+  greet();
+  try{
+    const r=await sb.from("tasks").insert({mapel,tugas,dl,keluar:iso(new Date()),oleh,ts:Date.now()});if(r.error)throw r.error;await load();
+    $("tugas").value="";
+    toast("Tugas tersimpan");
+  }catch(e){toast("Gagal menyimpan, cek akses kamu")}
+};
+$("copy").onclick=async()=>{
+  const t=build();
+  try{await navigator.clipboard.writeText(t)}
+  catch(e){const a=document.createElement("textarea");a.value=t;document.body.appendChild(a);a.select();try{document.execCommand("copy")}catch(_){}a.remove()}
+  toast("Pesan tersalin. Tempel di Saluran WA.");
+};
+
+const SUPABASE_URL="ISI_URL_PROJECT";
+const SUPABASE_KEY="ISI_ANON_KEY";
+
+async function load(){
+  const [a,b]=await Promise.all([sb.from("tasks").select("*").order("dl").order("ts"),sb.from("notes").select("*")]);
+  if(a.error||b.error){status("Gagal memuat data. Coba muat ulang halaman.");return}
+  status("");
+  tasks=a.data;nts={};b.data.forEach(n=>{nts[n.tgl]=n.isi||""});
+  if(document.activeElement!==$("notes"))loadNotes();
+  renderAll();
+}
+(async()=>{
+  if(SUPABASE_URL.startsWith("ISI")){status("Isi SUPABASE_URL dan SUPABASE_KEY di index.html dulu.");return}
+  sb=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+  await load();
+  setInterval(load,60000);
+  document.addEventListener("visibilitychange",()=>{if(!document.hidden)load()});
+})();
+</script>
+</body>
+</html>
